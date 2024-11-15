@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { NamesService } from './names.service';
 
 @Controller('api/v1/names')
@@ -8,5 +8,10 @@ export class NamesController {
   @Post()
   createName(@Body() data: { name: string }) {
     return this.namesService.createName(data.name);
+  }
+
+  @Get()
+  getNames(){
+    return this.namesService.getNames();
   }
 }

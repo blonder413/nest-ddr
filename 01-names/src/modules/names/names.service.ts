@@ -13,10 +13,13 @@ export class NamesService {
     );
     if (!nameFound) {
       this._names.push(name);
-      console.log(`Nombres: ${this._names}`);
 
       return true;
     }
     return false;
+  }
+
+  getNames() {
+    return this._names;
   }
 }
