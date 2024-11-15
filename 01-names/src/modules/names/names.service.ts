@@ -19,7 +19,16 @@ export class NamesService {
     return false;
   }
 
-  getNames() {
-    return this._names;
+  getNames(start?: string) {
+    if (!start) {
+      return this._names;
+    } else {
+      return this._names.filter((n) =>
+        n
+          .toLocaleLowerCase()
+          .trim()
+          .startsWith(start.toLocaleLowerCase().trim()),
+      );
+    }
   }
 }

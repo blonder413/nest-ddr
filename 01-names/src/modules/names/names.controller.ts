@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { NamesService } from './names.service';
 
 @Controller('api/v1/names')
@@ -11,7 +11,7 @@ export class NamesController {
   }
 
   @Get()
-  getNames(){
-    return this.namesService.getNames();
+  getNames(@Query('start') start:string){
+    return this.namesService.getNames(start);
   }
 }
