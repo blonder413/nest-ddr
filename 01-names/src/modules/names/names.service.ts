@@ -31,4 +31,21 @@ export class NamesService {
       );
     }
   }
+
+  updateName(name: string, newName: string) {
+    const indexNameFound = this._names.findIndex(
+      (n) => n.toLowerCase().trim() == name.toLowerCase().trim(),
+    );
+    const indexNewNameFound = this._names.findIndex(
+      (n) => n.toLowerCase().trim() == newName.toLowerCase().trim(),
+    );
+    console.log(this._names, indexNameFound, newName);
+
+    if (indexNameFound != -1 && indexNewNameFound == -1) {
+      this._names[indexNameFound] = newName;
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
