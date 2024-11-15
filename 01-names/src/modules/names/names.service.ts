@@ -6,4 +6,11 @@ export class NamesService {
   constructor() {
     this._names = [];
   }
+
+  createName(name: string) {
+    this._names.push(name);
+    console.log(`Nombres: ${this._names}`);
+
+    return true;
+  }
 }
