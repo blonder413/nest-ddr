@@ -29,6 +29,11 @@ export class NamesController {
     return this.namesService.updateName(name, newName);
   }
 
+  @Delete('clear')
+  clearNames() {
+    return this.namesService.clearNames();
+  }
+
   @Delete('/:name')
   deleteName(@Param('name') name: string) {
     return this.namesService.deleteName(name);

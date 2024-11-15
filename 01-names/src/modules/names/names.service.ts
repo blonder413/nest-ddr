@@ -57,4 +57,9 @@ export class NamesService {
     const deletedAfter = this._names.length;
     return deletedBefore != deletedAfter;
   }
+
+  clearNames() {
+    this._names = [];
+    return true;
+  }
 }
