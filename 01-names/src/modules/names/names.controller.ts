@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Param, Post, Put, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  Query,
+} from '@nestjs/common';
 import { NamesService } from './names.service';
 
 @Controller('api/v1/names')
@@ -18,5 +27,10 @@ export class NamesController {
   @Put('/:name/:newName')
   updateName(@Param('name') name: string, @Param('newName') newName: string) {
     return this.namesService.updateName(name, newName);
+  }
+
+  @Delete('/:name')
+  deleteName(@Param('name') name: string) {
+    return this.namesService.deleteName(name);
   }
 }

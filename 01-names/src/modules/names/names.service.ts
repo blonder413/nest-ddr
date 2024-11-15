@@ -48,4 +48,13 @@ export class NamesService {
       return false;
     }
   }
+
+  deleteName(name: string) {
+    const deletedBefore = this._names.length;
+    this._names = this._names.filter(
+      (n) => n.toLowerCase().trim() != name.toLowerCase().trim(),
+    );
+    const deletedAfter = this._names.length;
+    return deletedBefore != deletedAfter;
+  }
 }
