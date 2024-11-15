@@ -8,9 +8,15 @@ export class NamesService {
   }
 
   createName(name: string) {
-    this._names.push(name);
-    console.log(`Nombres: ${this._names}`);
+    const nameFound = this._names.find(
+      (n) => n.toLocaleLowerCase().trim() == name.toLocaleLowerCase().trim(),
+    );
+    if (!nameFound) {
+      this._names.push(name);
+      console.log(`Nombres: ${this._names}`);
 
-    return true;
+      return true;
+    }
+    return false;
   }
 }
