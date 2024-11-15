@@ -9,7 +9,6 @@ async function bootstrap() {
     .setTitle('Names')
     .setDescription('CRUD Names')
     .setVersion('1.0')
-    .addTag('names')
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('swagger', app, documentFactory);

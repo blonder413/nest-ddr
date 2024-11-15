@@ -9,8 +9,10 @@ import {
   Query,
 } from '@nestjs/common';
 import { NamesService } from './names.service';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('api/v1/names')
+@ApiTags('names')
 export class NamesController {
   constructor(private namesService: NamesService) {}
 
