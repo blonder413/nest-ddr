@@ -13,3 +13,9 @@ npm install --save @nestjs/swagger
 ```sh
 npm i class-validator
 ```
+
+# Validation Pipe
+
+```sh
+npm i class-transformer
+```
