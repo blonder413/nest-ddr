@@ -16,4 +16,23 @@ export class UsersService {
     }
     return false;
   }
+
+  getUsers(start: Date, end: Date) {
+    console.log(start, end);
+    if (start && end) {
+      return this._users.filter(
+        (u) =>
+          u.birthDate.getTime() >= start.getTime() &&
+          u.birthDate.getTime() <= end.getTime(),
+      );
+    } else if (start && !end) {
+      return this._users.filter(
+        (u) => u.birthDate.getTime() >= start.getTime(),
+      );
+    } else if (!start && end) {
+      return this._users.filter((u) => u.birthDate.getTime() <= end.getTime());
+    } else {
+      return this._users;
+    }
+  }
 }

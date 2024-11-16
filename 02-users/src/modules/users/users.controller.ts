@@ -1,7 +1,8 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { UsersService } from './users.service';
 import { UserDto } from './dto/users-dto';
+import { ParseDatePipe } from 'src/pipes/parse-date/parse-date.pipe';
 
 @Controller('api/v1/users')
 @ApiTags('users')
@@ -11,5 +12,13 @@ export class UsersController {
   @Post()
   createUser(@Body() user: UserDto) {
     return this.userService.createUser(user);
+  }
+
+  @Get()
+  getUsers(
+    @Query('start', ParseDatePipe) start: Date,
+    @Query('end', ParseDatePipe) end: Date,
+  ) {
+    return this.userService.getUsers(start, end);
   }
 }
