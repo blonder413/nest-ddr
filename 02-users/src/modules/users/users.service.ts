@@ -35,4 +35,13 @@ export class UsersService {
       return this._users;
     }
   }
+
+  updateUser(user: UserDto) {
+    const userAdded = this.createUser(user);
+    if (!userAdded) {
+      const index = this._users.findIndex((u) => user.id == user.id);
+      this._users[index] = user;
+    }
+    return true;
+  }
 }

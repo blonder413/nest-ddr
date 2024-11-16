@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Post, Put, Query } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { UsersService } from './users.service';
 import { UserDto } from './dto/users-dto';
@@ -20,5 +20,10 @@ export class UsersController {
     @Query('end', ParseDatePipe) end: Date,
   ) {
     return this.userService.getUsers(start, end);
+  }
+
+  @Put()
+  updateUser(@Body() user: UserDto) {
+    return this.userService.updateUser(user);
   }
 }
