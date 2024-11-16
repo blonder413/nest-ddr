@@ -44,4 +44,13 @@ export class UsersService {
     }
     return true;
   }
+
+  deleteUser(idUser: number) {
+    const index = this._users.findIndex((u) => u.id == idUser);
+    if (index != -1) {
+      this._users.splice(index, 1);
+      return true;
+    }
+    return false;
+  }
 }
