@@ -9,7 +9,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { NamesService } from './names.service';
-import { ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger';
 
 @Controller('api/v1/names')
 @ApiTags('names')
@@ -29,6 +29,12 @@ export class NamesController {
   @ApiOperation({
     description:
       'Devuelve todos los nombres que inician con una cadena de texto dadaa',
+  })
+  @ApiQuery({
+    name: 'start',
+    type: 'string',
+    required: false,
+    description: 'letras por las que inicia el nombre',
   })
   getNames(@Query('start') start: string) {
     return this.namesService.getNames(start);
