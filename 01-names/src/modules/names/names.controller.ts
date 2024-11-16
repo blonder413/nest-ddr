@@ -9,7 +9,13 @@ import {
   Query,
 } from '@nestjs/common';
 import { NamesService } from './names.service';
-import { ApiOperation, ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBody,
+  ApiOperation,
+  ApiParam,
+  ApiQuery,
+  ApiTags,
+} from '@nestjs/swagger';
 
 @Controller('api/v1/names')
 @ApiTags('names')
@@ -17,6 +23,21 @@ export class NamesController {
   constructor(private namesService: NamesService) {}
 
   @Post()
+  @ApiBody({
+    description: 'Añadiendo un nombre',
+    examples: {
+      ejemplo1: {
+        value: {
+          name: 'Jill',
+        },
+      },
+      ejemplo2: {
+        value: {
+          name: 'Barry',
+        },
+      },
+    },
+  })
   @ApiOperation({
     description:
       'Crea un nuevo nombre. Retorna true si se inserta correctamente',
