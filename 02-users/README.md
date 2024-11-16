@@ -9,3 +9,9 @@ npm i class-validator
 ```sh
 npm i class-transformer
 ```
+
+## Crear Pipe
+
+```sh
+nest g pipe parse-date
+```
