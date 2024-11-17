@@ -13,13 +13,18 @@ export class ProductController {
     return this.productService.createProduct(product);
   }
 
+  @Get('/deleted')
+  getDeleted() {
+    return this.productService.findDeleted();
+  }
+
   @Get('/:id')
   getProductById(@Param('id') id: number) {
     return this.productService.findProduct(id);
   }
 
   @Get()
-  getProducts(){
+  getProducts() {
     return this.productService.findAll();
   }
 }

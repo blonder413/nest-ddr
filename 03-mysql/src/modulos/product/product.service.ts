@@ -12,8 +12,9 @@ export class ProductService {
 
   async createProduct(product: ProductDto) {
     const productExists: ProductDto = await this.findProduct(product.id);
-    if (productExists) {
-      throw new ConflictException('Ya existe el producto');
+    
+    if (productExists.id == product.id) {
+      throw new ConflictException(`el producto con el id ${product.id} ya existe`);
     }
     return await this.productRepository.save(product);
   }
@@ -24,5 +25,9 @@ export class ProductService {
 
   async findAll() {
     return await this.productRepository.find({ where: { deleted: false } });
+  }
+
+  async findDeleted() {
+    return await this.productRepository.find({ where: { deleted: true } });
   }
 }
