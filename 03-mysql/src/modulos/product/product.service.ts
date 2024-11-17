@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Product } from './entity/product.entity';
 import { Repository } from 'typeorm';
@@ -11,6 +11,10 @@ export class ProductService {
   ) {}
 
   async createProduct(product: ProductDto) {
+    const productExists: ProductDto = await this.findProduct(product.id);
+    if (productExists) {
+      throw new ConflictException('Ya existe el producto');
+    }
     return await this.productRepository.save(product);
   }
 
