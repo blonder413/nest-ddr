@@ -25,3 +25,9 @@ npm i class-transformer
 ```sh
 nest g pipe parse-date
 ```
+
+# TypeORM
+
+```sh
+npm i --save @nestjs/typeorm typeorm mysql2
+```
