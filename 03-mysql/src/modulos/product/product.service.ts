@@ -12,9 +12,13 @@ export class ProductService {
 
   async createProduct(product: ProductDto) {
     const productExists: ProductDto = await this.findProduct(product.id);
-    
-    if (productExists.id == product.id) {
-      throw new ConflictException(`el producto con el id ${product.id} ya existe`);
+
+    if (product.id != undefined) {
+      if (productExists != null) {
+        throw new ConflictException(
+          `el producto con el id ${product.id} ya existe`,
+        );
+      }
     }
     return await this.productRepository.save(product);
   }
