@@ -17,4 +17,9 @@ export class ProductController {
   getProductById(@Param('id') id: number) {
     return this.productService.findProduct(id);
   }
+
+  @Get()
+  getProducts(){
+    return this.productService.findAll();
+  }
 }
