@@ -13,4 +13,8 @@ export class ProductService {
   async createProduct(product: ProductDto) {
     return await this.productRepository.save(product);
   }
+
+  async findProduct(id: number) {
+    return await this.productRepository.findOne({ where: { id } });
+  }
 }
