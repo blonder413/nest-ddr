@@ -53,4 +53,19 @@ export class ProductService {
     );
     return rows.affected == 1;
   }
+
+  async restoreProduct(id: number) {
+    const productExists: ProductDto = await this.findProduct(id);
+
+    if (!productExists) {
+      throw new ConflictException(`el producto con el id ${id} no existe`);
+    } else if (!productExists.deleted) {
+      throw new ConflictException(`el producto no está borrado`);
+    }
+    const rows: UpdateResult = await this.productRepository.update(
+      { id },
+      { deleted: false },
+    );
+    return rows.affected == 1;
+  }
 }

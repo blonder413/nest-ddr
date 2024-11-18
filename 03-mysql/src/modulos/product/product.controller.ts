@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  Patch,
   Post,
   Put,
 } from '@nestjs/common';
@@ -44,5 +45,10 @@ export class ProductController {
   @Delete('/:id')
   deleteProduct(@Param('id') id: number) {
     return this.productService.softDeleteProduct(id);
+  }
+
+  @Patch('/restore/:id')
+  restoreProduct(@Param('id') id: number) {
+    return this.productService.restoreProduct(id);
   }
 }
