@@ -34,4 +34,8 @@ export class ProductService {
   async findDeleted() {
     return await this.productRepository.find({ where: { deleted: true } });
   }
+
+  async updateProduct(product: ProductDto) {
+    return await this.productRepository.save(product);
+  }
 }
