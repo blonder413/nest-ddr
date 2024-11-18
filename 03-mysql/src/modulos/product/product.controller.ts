@@ -57,4 +57,9 @@ export class ProductController {
   updateStock(@Body() stock: StockDto) {
     return this.productService.updateStock(stock);
   }
+
+  @Patch('/increment-stock')
+  incrementStock(@Body() stock: StockDto) {
+    return this.productService.incrementStock(stock);
+  }
 }

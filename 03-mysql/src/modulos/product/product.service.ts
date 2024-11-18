@@ -7,6 +7,8 @@ import { StockDto } from './dto/stock-dto';
 
 @Injectable()
 export class ProductService {
+  private MIN_STOCK: number = 0;
+  private MAX_STOCK: number = 1000;
   constructor(
     @InjectRepository(Product) private productRepository: Repository<Product>,
   ) {}
@@ -83,6 +85,30 @@ export class ProductService {
     const rows: UpdateResult = await this.productRepository.update(
       { id: stock.id },
       { stock: stock.stock },
+    );
+    return rows.affected == 1;
+  }
+
+  async incrementStock(stock: StockDto) {
+    const product: ProductDto = await this.findProduct(stock.id);
+    if (!product) {
+      throw new ConflictException(`El producto con id ${stock.id} no existe`);
+    }
+    if (product.deleted) {
+      throw new ConflictException(
+        `El producto con id ${stock.id} está borrado`,
+      );
+    }
+    let cantidad = 0;
+    if (stock.stock + product.stock > this.MAX_STOCK) {
+      cantidad = this.MAX_STOCK;
+    } else {
+      cantidad = stock.stock + product.stock;
+    }
+
+    const rows: UpdateResult = await this.productRepository.update(
+      { id: stock.id },
+      { stock: cantidad },
     );
     return rows.affected == 1;
   }
