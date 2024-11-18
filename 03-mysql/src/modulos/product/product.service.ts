@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Product } from './entity/product.entity';
 import { Repository, UpdateResult } from 'typeorm';
 import { ProductDto } from './dto/product-dto';
+import { StockDto } from './dto/stock-dto';
 
 @Injectable()
 export class ProductService {
@@ -65,6 +66,23 @@ export class ProductService {
     const rows: UpdateResult = await this.productRepository.update(
       { id },
       { deleted: false },
+    );
+    return rows.affected == 1;
+  }
+
+  async updateStock(stock: StockDto) {
+    const product: ProductDto = await this.findProduct(stock.id);
+    if (!product) {
+      throw new ConflictException(`El producto con id ${stock.id} no existe`);
+    }
+    if (product.deleted) {
+      throw new ConflictException(
+        `El producto con id ${stock.id} está borrado`,
+      );
+    }
+    const rows: UpdateResult = await this.productRepository.update(
+      { id: stock.id },
+      { stock: stock.stock },
     );
     return rows.affected == 1;
   }

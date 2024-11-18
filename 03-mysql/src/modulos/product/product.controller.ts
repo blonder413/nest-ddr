@@ -11,6 +11,7 @@ import {
 import { ApiTags } from '@nestjs/swagger';
 import { ProductService } from './product.service';
 import { ProductDto } from './dto/product-dto';
+import { StockDto } from './dto/stock-dto';
 
 @ApiTags('productos')
 @Controller('api/v1/products')
@@ -50,5 +51,10 @@ export class ProductController {
   @Patch('/restore/:id')
   restoreProduct(@Param('id') id: number) {
     return this.productService.restoreProduct(id);
+  }
+
+  @Patch('/stock')
+  updateStock(@Body() stock: StockDto) {
+    return this.productService.updateStock(stock);
   }
 }
