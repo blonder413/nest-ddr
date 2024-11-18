@@ -112,4 +112,27 @@ export class ProductService {
     );
     return rows.affected == 1;
   }
+
+  async decrementStock(stock: StockDto) {
+    const product: ProductDto = await this.findProduct(stock.id);
+    if (!product) {
+      throw new ConflictException(`El producto con id ${stock.id} no existe`);
+    }
+    if (product.deleted) {
+      throw new ConflictException(
+        `El producto con id ${stock.id} está borrado`,
+      );
+    }
+    let cantidad = 0;
+    if (product.stock - stock.stock < this.MIN_STOCK) {
+      cantidad = this.MIN_STOCK;
+    } else {
+      cantidad = product.stock - stock.stock;
+    }
+    const rows: UpdateResult = await this.productRepository.update(
+      { id: stock.id },
+      { stock: cantidad },
+    );
+    return rows.affected == 1;
+  }
 }

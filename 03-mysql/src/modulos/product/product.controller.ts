@@ -62,4 +62,9 @@ export class ProductController {
   incrementStock(@Body() stock: StockDto) {
     return this.productService.incrementStock(stock);
   }
+
+  @Patch('/decrement-stock')
+  decrementStock(@Body() stock: StockDto) {
+    return this.productService.decrementStock(stock);
+  }
 }
