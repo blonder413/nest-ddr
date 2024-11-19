@@ -43,12 +43,6 @@ export class ProductController {
   @ApiOperation({
     description: "lista todos los productos borrados"
   })
-  @ApiParam({
-    description: "id del producto",
-    name: "id",
-    required: true,
-    type: Number
-  })
   @Get('/deleted')
   getDeleted() {
     return this.productService.findDeleted();
