@@ -18,7 +18,8 @@ export class Client {
   @Column({ type: String, nullable: false, unique: true, length: 30 })
   email!: string;
 
-  @OneToOne(() => Address, { cascade: ['insert'] })
+  // eager trae los objetos relacionados
+  @OneToOne(() => Address, { cascade: ['insert'], eager:true })
   @JoinColumn()
   address!: Address;
 }

@@ -50,6 +50,10 @@ export class ClientService {
     return this.clientsRepository.save(client);
   }
 
+  async getClients() {
+    return this.clientsRepository.find();
+  }
+
   findClient(client: ClientDto) {
     return this.clientsRepository.findOne({
       where: [{ id: client.id }, { email: client.email }], // OR
