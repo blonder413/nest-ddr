@@ -63,4 +63,11 @@ export class ClientService {
       where: [{ id: client.id }, { email: client.email }], // OR
     });
   }
+
+  async updateClient(client: ClientDto) {
+    if (!client.id) {
+      return this.createClient(client);
+    }
+    return await this.clientsRepository.save(client);
+  }
 }
