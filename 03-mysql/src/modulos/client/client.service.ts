@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { ClientDto } from './dto/client-dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Client } from './entity/client.entity';
@@ -11,7 +11,23 @@ export class ClientService {
     private clientsRepository: Repository<Client>,
   ) {}
 
-  createClient(client: ClientDto) {
+  async createClient(client: ClientDto) {
+    const clientExist = await this.findClient(client);
+    if (clientExist) {
+      if (client.id) {
+        throw new ConflictException(`El cliente con id ${client.id} ya existe`);
+      } else {
+        throw new ConflictException(
+          `El cliente con email ${client.email} ya existe`,
+        );
+      }
+    }
     return this.clientsRepository.save(client);
+  }
+
+  findClient(client: ClientDto) {
+    return this.clientsRepository.findOne({
+      where: [{ id: client.id }, { email: client.email }], // OR
+    });
   }
 }
