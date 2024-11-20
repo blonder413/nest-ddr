@@ -54,6 +54,10 @@ export class ClientService {
     return this.clientsRepository.find();
   }
 
+  async findClientById(id: number) {
+    return await this.clientsRepository.findOne({ where: { id } });
+  }
+
   findClient(client: ClientDto) {
     return this.clientsRepository.findOne({
       where: [{ id: client.id }, { email: client.email }], // OR
