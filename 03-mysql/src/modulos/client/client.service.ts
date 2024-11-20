@@ -64,10 +64,20 @@ export class ClientService {
     });
   }
 
+  findClientByEmail(email: string) {
+    return this.clientsRepository.findOne({ where: { email } });
+  }
+
   async updateClient(client: ClientDto) {
     if (!client.id) {
       return this.createClient(client);
     }
+    
+    let clientExist = await this.findClientByEmail(client.email);
+    if (clientExist && clientExist.id!=client.id) {
+      throw new ConflictException(`El cliente con el email ${client.email} existe`)
+    }
+
     return await this.clientsRepository.save(client);
   }
 }
