@@ -1,3 +1,4 @@
+import { Type } from 'class-transformer';
 import {
   IsEmail,
   IsNotEmpty,
@@ -6,6 +7,7 @@ import {
   IsPositive,
   IsString,
 } from 'class-validator';
+import { Address } from '../entity/address.entity';
 
 export class ClientDto {
   @IsOptional()
@@ -20,4 +22,8 @@ export class ClientDto {
   @IsNotEmpty()
   @IsEmail()
   email!: string;
+
+  @Type(() => Address)
+  @IsNotEmpty()
+  address!: Address;
 }
