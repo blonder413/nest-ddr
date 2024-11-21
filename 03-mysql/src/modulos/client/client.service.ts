@@ -122,6 +122,12 @@ export class ClientService {
       }
     }
 
-    return await this.clientsRepository.save(client);
+    const updateClient = await this.clientsRepository.save(client);
+
+    if (deleteAddress) {
+      await this.addressRepository.delete({id: clientExists.address.id});
+    }
+
+    return updateClient;
   }
 }
