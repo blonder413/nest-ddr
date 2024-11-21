@@ -19,7 +19,7 @@ export class Client {
   email!: string;
 
   // eager trae los objetos relacionados
-  @OneToOne(() => Address, { cascade: ['insert'], eager:true })
+  @OneToOne(() => Address, { cascade: ['insert', 'update'], eager:true })
   @JoinColumn()
   address!: Address;
 }

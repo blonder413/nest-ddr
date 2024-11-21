@@ -73,16 +73,39 @@ export class ClientService {
       return this.createClient(client);
     }
     
-    let clientExist = await this.findClientByEmail(client.email);
-    if (clientExist && clientExist.id!=client.id) {
+    let clientExists = await this.findClientByEmail(client.email);
+    if (clientExists && clientExists.id!=client.id) {
       throw new ConflictException(`El cliente con el email ${client.email} existe`)
     }
 
+    clientExists = await this.findClientById(client.id);
+  
     let addressExists:Address = null;
     let deleteAddress = false;
 
     if (client.address.id) {
-      // addressExists = await this.addressRepository.findOne({where:{id:client.address.id}})
+      addressExists = await this.addressRepository.findOne({where:{id:client.address.id}});
+      if (addressExists) {
+        throw new ConflictException(`El cliente con email ${client.email} ya existe`);
+      }
+
+      if (addressExists && addressExists.id != clientExists.address.id) {
+        throw new ConflictException("La dirección ya existe");
+      } else if (JSON.stringify(addressExists) != JSON.stringify(client.address)) {
+        addressExists = await this.addressRepository.findOne({
+          where: {
+            country: client.address.country,
+            province: client.address.province,
+            town: client.address.town,
+            street: client.address.street
+          }
+        });
+        if (addressExists) {
+          throw new ConflictException("La dirección ya existe");
+        } else {
+          deleteAddress = true;
+        }
+      }
     } else {
       addressExists = await this.addressRepository.findOne({
         where: {
