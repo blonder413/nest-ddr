@@ -1,7 +1,9 @@
+import { Client } from 'src/modulos/client/entity/client.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -12,11 +14,14 @@ export class Order {
   id?: string;
 
   @CreateDateColumn()
-  createdAt: Date;
+  createdAt?: Date;
 
   @UpdateDateColumn()
-  updatedAt: Date;
+  updatedAt?: Date;
 
   @Column({ type: Date, nullable: true })
   confirmAt: Date;
+
+  @ManyToOne(() => Client, (client) => client.orders)
+  client!: Client;
 }
