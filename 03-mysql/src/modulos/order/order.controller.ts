@@ -11,6 +11,11 @@ export class OrderController {
     return this.oderService.createOrder(order);
   }
 
+  @Get("confirmed")
+  getConfirmedOrders(){
+    return this.oderService.getConfirmedOrders();
+  }
+
   @Get("pending")
   getPendingOrders(){
     return this.oderService.getPendingOrders();
