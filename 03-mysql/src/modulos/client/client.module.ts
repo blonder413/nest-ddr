@@ -6,10 +6,9 @@ import { Address } from './entity/address.entity';
 import { Client } from './entity/client.entity';
 
 @Module({
-  imports:[
-    TypeOrmModule.forFeature([Client, Address])
-  ],
+  imports: [TypeOrmModule.forFeature([Client, Address])],
   controllers: [ClientController],
-  providers: [ClientService]
+  providers: [ClientService],
+  exports: [ClientService],
 })
 export class ClientModule {}
