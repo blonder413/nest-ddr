@@ -1,8 +1,11 @@
 import { Client } from 'src/modulos/client/entity/client.entity';
+import { Product } from 'src/modulos/product/entity/product.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinTable,
+  ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -24,4 +27,8 @@ export class Order {
 
   @ManyToOne(() => Client, (client) => client.orders)
   client!: Client;
+
+  @ManyToMany(() => Product)
+  @JoinTable({name: 'order_products'})
+  products: Product[];
 }
