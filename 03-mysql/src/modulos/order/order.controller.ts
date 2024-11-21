@@ -1,28 +1,34 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { OrderService } from './order.service';
 import { OrderDto } from './dto/order-dto';
+import { ParseDatePipe } from 'src/pipes/parse-date.pipe';
 
 @Controller('api/v1/orders')
 export class OrderController {
-  constructor(private oderService: OrderService) {}
+  constructor(private orderService: OrderService) {}
 
   @Post()
   createOrder(@Body() order: OrderDto) {
-    return this.oderService.createOrder(order);
+    return this.orderService.createOrder(order);
   }
 
+  // @Get("confirmed")
+  // getConfirmedOrders(){
+  //   return this.orderService.getConfirmedOrders();
+  // }
+
   @Get("confirmed")
-  getConfirmedOrders(){
-    return this.oderService.getConfirmedOrders();
-  }
+  getConfirmedOrders(@Query('start', ParseDatePipe) start: Date, @Query('end', ParseDatePipe) end: Date){
+    return this.orderService.getConfirmedOrders(start, end);
+}
 
   @Get("pending")
   getPendingOrders(){
-    return this.oderService.getPendingOrders();
+    return this.orderService.getPendingOrders();
   }
 
   @Get("/:id")
   getOrderById(@Param("id") id:string) {
-    return this.oderService.getOrderById(id);
+    return this.orderService.getOrderById(id);
   }
 }
