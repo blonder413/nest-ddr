@@ -78,6 +78,27 @@ export class ClientService {
       throw new ConflictException(`El cliente con el email ${client.email} existe`)
     }
 
+    let addressExists:Address = null;
+    let deleteAddress = false;
+
+    if (client.address.id) {
+      // addressExists = await this.addressRepository.findOne({where:{id:client.address.id}})
+    } else {
+      addressExists = await this.addressRepository.findOne({
+        where: {
+          country: client.address.country,
+          province: client.address.province,
+          town: client.address.town,
+          street: client.address.street
+        }
+      });
+      if (addressExists) {
+        throw new ConflictException("La dirección ya existe");
+      } else {
+        deleteAddress = true;
+      }
+    }
+
     return await this.clientsRepository.save(client);
   }
 }
