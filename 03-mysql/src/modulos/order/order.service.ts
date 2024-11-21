@@ -33,4 +33,8 @@ export class OrderService {
     }
     return this.orderRepository.save(order);
   }
+
+  async getOrderById(id){
+    return this.orderRepository.findOne({where: {id}})
+  }
 }

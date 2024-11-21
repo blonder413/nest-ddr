@@ -25,10 +25,10 @@ export class Order {
   @Column({ type: Date, nullable: true })
   confirmAt: Date;
 
-  @ManyToOne(() => Client, (client) => client.orders)
+  @ManyToOne(() => Client, (client) => client.orders, {eager: true})
   client!: Client;
 
-  @ManyToMany(() => Product)
+  @ManyToMany(() => Product, {eager: true})
   @JoinTable({name: 'order_products'})
   products: Product[];
 }
