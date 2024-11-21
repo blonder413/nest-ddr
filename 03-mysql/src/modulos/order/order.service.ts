@@ -3,7 +3,7 @@ import { ClientService } from '../client/client.service';
 import { ProductService } from '../product/product.service';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Order } from './entity/order.entity';
-import { Repository } from 'typeorm';
+import { IsNull, Repository } from 'typeorm';
 import { OrderDto } from './dto/order-dto';
 
 @Injectable()
@@ -34,7 +34,11 @@ export class OrderService {
     return this.orderRepository.save(order);
   }
 
-  async getOrderById(id){
-    return this.orderRepository.findOne({where: {id}})
+  async getOrderById(id) {
+    return this.orderRepository.findOne({ where: { id } });
+  }
+
+  async getPendingOrders() {
+    return this.orderRepository.find({ where: { confirmAt: IsNull() } });
   }
 }

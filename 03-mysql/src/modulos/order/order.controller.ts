@@ -11,6 +11,11 @@ export class OrderController {
     return this.oderService.createOrder(order);
   }
 
+  @Get("pending")
+  getPendingOrders(){
+    return this.oderService.getPendingOrders();
+  }
+
   @Get("/:id")
   getOrderById(@Param("id") id:string) {
     return this.oderService.getOrderById(id);
