@@ -9,6 +9,7 @@ import {
   MoreThanOrEqual,
   Not,
   Repository,
+  UpdateResult,
 } from 'typeorm';
 import { OrderDto } from './dto/order-dto';
 
@@ -85,5 +86,20 @@ export class OrderService {
 
   async getPendingOrders() {
     return this.orderRepository.find({ where: { confirmAt: IsNull() } });
+  }
+
+  async confirmOrder(id: string) {
+    const orderExists = await this.getOrderById(id);
+    if (!orderExists) {
+      throw new ConflictException(`La orden con el id ${id} no existe`);
+    }
+    if (orderExists.confirmAt) {
+      throw new ConflictException(`La orden con id ${id} ya está confirmada`);
+    }
+    const rows: UpdateResult = await this.orderRepository.update(
+      { id },
+      { confirmAt: new Date() },
+    );
+    return rows.affected == 1;
   }
 }

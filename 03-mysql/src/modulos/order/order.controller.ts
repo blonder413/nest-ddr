@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { OrderService } from './order.service';
 import { OrderDto } from './dto/order-dto';
 import { ParseDatePipe } from 'src/pipes/parse-date.pipe';
@@ -17,18 +25,26 @@ export class OrderController {
   //   return this.orderService.getConfirmedOrders();
   // }
 
-  @Get("confirmed")
-  getConfirmedOrders(@Query('start', ParseDatePipe) start: Date, @Query('end', ParseDatePipe) end: Date){
+  @Get('confirmed')
+  getConfirmedOrders(
+    @Query('start', ParseDatePipe) start: Date,
+    @Query('end', ParseDatePipe) end: Date,
+  ) {
     return this.orderService.getConfirmedOrders(start, end);
-}
+  }
 
-  @Get("pending")
-  getPendingOrders(){
+  @Get('pending')
+  getPendingOrders() {
     return this.orderService.getPendingOrders();
   }
 
-  @Get("/:id")
-  getOrderById(@Param("id") id:string) {
+  @Get('/:id')
+  getOrderById(@Param('id') id: string) {
     return this.orderService.getOrderById(id);
+  }
+
+  @Patch('/confirm/:id')
+  confirmOrder(@Param('id') id: string) {
+    return this.orderService.confirmOrder(id);
   }
 }
