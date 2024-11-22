@@ -25,6 +25,11 @@ export class OrderController {
   //   return this.orderService.getConfirmedOrders();
   // }
 
+  @Get("/client/:idClient")
+  getOrderByClient(@Param('idClient') idClient:number){
+    return this.orderService.getOrdersByClient(idClient);
+  }
+
   @Get('confirmed')
   getConfirmedOrders(
     @Query('start', ParseDatePipe) start: Date,

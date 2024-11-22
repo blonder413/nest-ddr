@@ -84,6 +84,16 @@ export class OrderService {
     }
   }
 
+  async getOrdersByClient(idClient: number) {
+    return await this.orderRepository
+      .createQueryBuilder('order')
+      .leftJoinAndSelect('order.client', 'client')
+      .leftJoinAndSelect('order.products', 'products')
+      .where('client.id=:idClient', { idClient })
+      .orderBy('order.confirmAt')
+      .getMany();
+  }
+
   async getPendingOrders() {
     return this.orderRepository.find({ where: { confirmAt: IsNull() } });
   }
