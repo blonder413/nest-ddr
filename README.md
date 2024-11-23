@@ -37,3 +37,15 @@ npm i --save @nestjs/typeorm typeorm mysql2
 ```sh
 npm i @nestjs/mongoose mongoose
 ```
+
+# [Config](https://docs.nestjs.com/techniques/configuration)
+
+```sh
+npm i --save @nestjs/config
+```
+
+# [cross-env](https://www.npmjs.com/package/cross-env)
+
+```sh
+npm install --save-dev cross-env
+```
