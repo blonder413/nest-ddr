@@ -15,3 +15,9 @@ npm i class-validator
 ```sh
 npm i class-transformer
 ```
+
+# [MongoDB](https://docs.nestjs.com/techniques/mongodb)
+
+```sh
+npm i @nestjs/mongoose mongoose
+```

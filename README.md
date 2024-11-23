@@ -31,3 +31,9 @@ nest g pipe parse-date
 ```sh
 npm i --save @nestjs/typeorm typeorm mysql2
 ```
+
+# [MongoDB](https://docs.nestjs.com/techniques/mongodb)
+
+```sh
+npm i @nestjs/mongoose mongoose
+```
