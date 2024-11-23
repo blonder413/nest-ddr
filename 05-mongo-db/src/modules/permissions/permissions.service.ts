@@ -20,4 +20,8 @@ export class PermissionsService {
     const p = new this.permissionModel(permission);
     return p.save();
   }
+
+  async getPermissions() {
+    return this.permissionModel.find();
+  }
 }
