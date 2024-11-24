@@ -113,4 +113,31 @@ export class RolesService {
     }
     throw new ConflictException('El rol no existe');
   }
+
+  async removePermission(name: string, permission: PermissionDto) {
+    const roleExists = await this.findRoleByName(name);
+    if (roleExists) {
+      const permissionExists =
+        await this.permissionService.findPermissionByName(permission.name);
+      if (permissionExists) {
+        const permissionRoleExist = await this.roleModel.findOne({
+          name: roleExists.name,
+          permissions: {
+            $in: permissionExists._id,
+          },
+        });
+        if (permissionRoleExist) {
+          await roleExists.updateOne({
+            $pull: {
+              permissions: permissionExists._id,
+            },
+          });
+          return this.findRoleByName(name);
+        }
+        throw new ConflictException('El permiso no existe en el rol');
+      }
+      throw new ConflictException('El permiso no existe');
+    }
+    throw new ConflictException('El rol no existe');
+  }
 }

@@ -40,4 +40,12 @@ export class RolesController {
   ) {
     return this.rolesService.addPermision(name, permission);
   }
+
+  @Patch('/remove-permission/:name')
+  removePermission(
+    @Param('name') name: string,
+    @Body() permission: PermissionDto,
+  ) {
+    return this.rolesService.removePermission(name, permission);
+  }
 }
