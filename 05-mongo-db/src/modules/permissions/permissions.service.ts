@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Permission } from './schemas/permission.schema';
 import { Model } from 'mongoose';
 import { PermissionDto } from './dto/permission-dto';
+import { UpdatePermissionDto } from './dto/permission-update.dto';
 
 @Injectable()
 export class PermissionsService {
@@ -30,5 +31,23 @@ export class PermissionsService {
       };
     }
     return await this.permissionModel.find(filter);
+  }
+
+  async updatePermission(updatePermission: UpdatePermissionDto) {
+    const permissionExists = await this.permissionModel.findOne({
+      name: updatePermission.originalName,
+    });
+    const newPermissionExists = await this.permissionModel.findOne({
+      name: updatePermission.newName,
+    });
+    if (permissionExists && !newPermissionExists) {
+      await permissionExists.updateOne({ name: updatePermission.newName });
+      return this.permissionModel.findById(permissionExists._id);
+    } else if (!permissionExists) {
+      const permission = new PermissionDto();
+      permission.name = updatePermission.originalName;
+      return this.createPermission(permission);
+    }
+    throw new ConflictException('No se puede actualizar el permiso');
   }
 }
