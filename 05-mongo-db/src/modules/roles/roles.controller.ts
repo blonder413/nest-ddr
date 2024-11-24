@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Patch,
@@ -47,5 +48,10 @@ export class RolesController {
     @Body() permission: PermissionDto,
   ) {
     return this.rolesService.removePermission(name, permission);
+  }
+
+  @Delete('/:name')
+  removeRole(@Param('name') name: string) {
+    return this.rolesService.destroyRole(name);
   }
 }

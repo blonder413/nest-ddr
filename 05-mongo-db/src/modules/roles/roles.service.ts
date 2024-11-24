@@ -140,4 +140,12 @@ export class RolesService {
     }
     throw new ConflictException('El rol no existe');
   }
+
+  async destroyRole(name: string) {
+    const roleExists = await this.findRoleByName(name);
+    if (roleExists) {
+      return roleExists.deleteOne();
+    }
+    throw new ConflictException('El rol no existe');
+  }
 }
