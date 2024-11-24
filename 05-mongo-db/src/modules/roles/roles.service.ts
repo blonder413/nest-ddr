@@ -36,4 +36,8 @@ export class RolesService {
     });
     return r.save();
   }
+
+  async getRoles() {
+    return this.roleModel.find().populate('permissions');
+  }
 }
