@@ -50,4 +50,12 @@ export class PermissionsService {
     }
     throw new ConflictException('No se puede actualizar el permiso');
   }
+
+  async deletePermission(name: string) {
+    const permissionExists = await this.permissionModel.findOne({ name });
+    if (permissionExists) {
+      return await permissionExists.deleteOne();
+    }
+    throw new ConflictException('El permiso no existe');
+  }
 }

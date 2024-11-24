@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Post, Put, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  Query,
+} from '@nestjs/common';
 import { PermissionsService } from './permissions.service';
 import { ApiTags } from '@nestjs/swagger';
 import { PermissionDto } from './dto/permission-dto';
@@ -22,5 +31,10 @@ export class PermissionsController {
   @Put()
   updatePermission(@Body() updatePermission: UpdatePermissionDto) {
     return this.permissionService.updatePermission(updatePermission);
+  }
+
+  @Delete('/:name')
+  deletePermission(@Param('name') name: string) {
+    return this.permissionService.deletePermission(name);
   }
 }
