@@ -37,7 +37,14 @@ export class RolesService {
     return r.save();
   }
 
-  async getRoles() {
-    return this.roleModel.find().populate('permissions');
+  async getRoles(name: string) {
+    const filter = {};
+    if (name) {
+      filter['name'] = {
+        $regex: name.trim(),
+        $options: 'i', // para que la consulta no sea case sensitive
+      };
+    }
+    return this.roleModel.find(filter).populate('permissions');
   }
 }
