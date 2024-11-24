@@ -21,7 +21,14 @@ export class PermissionsService {
     return p.save();
   }
 
-  async getPermissions() {
-    return this.permissionModel.find();
+  async getPermissions(name: string) {
+    const filter = {};
+    if (name) {
+      filter['name'] = {
+        $regex: name.trim(), // toma lo que contenga el valor dado
+        $options: 'i', // para que no sea case sensitive
+      };
+    }
+    return await this.permissionModel.find(filter);
   }
 }

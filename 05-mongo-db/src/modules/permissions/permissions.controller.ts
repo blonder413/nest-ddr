@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { PermissionsService } from './permissions.service';
 import { ApiTags } from '@nestjs/swagger';
 import { PermissionDto } from './dto/permission-dto';
@@ -14,7 +14,7 @@ export class PermissionsController {
   }
 
   @Get()
-  getPermission() {
-    return this.permissionService.getPermissions();
+  getPermission(@Query('name') name: string) {
+    return this.permissionService.getPermissions(name);
   }
 }
