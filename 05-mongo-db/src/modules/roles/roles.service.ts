@@ -4,6 +4,7 @@ import { Role } from './schemas/role.schema';
 import { Model, Types } from 'mongoose';
 import { PermissionsService } from '../permissions/permissions.service';
 import { RoleDto } from './dto/role-dto';
+import { PermissionDto } from '../permissions/dto/permission-dto';
 
 @Injectable()
 export class RolesService {
@@ -84,5 +85,32 @@ export class RolesService {
     } else {
       return this.createRole(role);
     }
+  }
+
+  async addPermision(name: string, permission: PermissionDto) {
+    const roleExists = await this.findRoleByName(name);
+    if (roleExists) {
+      const permissionExists =
+        await this.permissionService.findPermissionByName(permission.name);
+      if (permissionExists) {
+        const permissionRoleExist = await this.roleModel.findOne({
+          name: roleExists.name,
+          permissions: {
+            $in: permissionExists._id,
+          },
+        });
+        if (!permissionRoleExist) {
+          await roleExists.updateOne({
+            $push: {
+              permissions: permissionExists._id,
+            },
+          });
+          return this.findRoleByName(name);
+        }
+        throw new ConflictException('El permiso ya existe en el rol');
+      }
+      throw new ConflictException('El permiso no existe');
+    }
+    throw new ConflictException('El rol no existe');
   }
 }
