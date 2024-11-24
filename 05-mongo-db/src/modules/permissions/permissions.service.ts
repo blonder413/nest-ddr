@@ -12,9 +12,7 @@ export class PermissionsService {
   ) {}
 
   async createPermission(permission: PermissionDto) {
-    const permissionExists = await this.permissionModel.findOne({
-      name: permission.name,
-    });
+    const permissionExists = await this.findPermissionByName(permission.name);
     if (permissionExists) {
       throw new ConflictException('El permiso existe');
     }
@@ -34,12 +32,12 @@ export class PermissionsService {
   }
 
   async updatePermission(updatePermission: UpdatePermissionDto) {
-    const permissionExists = await this.permissionModel.findOne({
-      name: updatePermission.originalName,
-    });
-    const newPermissionExists = await this.permissionModel.findOne({
-      name: updatePermission.newName,
-    });
+    const permissionExists = await this.findPermissionByName(
+      updatePermission.originalName,
+    );
+    const newPermissionExists = await this.findPermissionByName(
+      updatePermission.newName,
+    );
     if (permissionExists && !newPermissionExists) {
       await permissionExists.updateOne({ name: updatePermission.newName });
       return this.permissionModel.findById(permissionExists._id);
@@ -52,10 +50,14 @@ export class PermissionsService {
   }
 
   async deletePermission(name: string) {
-    const permissionExists = await this.permissionModel.findOne({ name });
+    const permissionExists = await this.findPermissionByName(name);
     if (permissionExists) {
       return await permissionExists.deleteOne();
     }
     throw new ConflictException('El permiso no existe');
+  }
+
+  async findPermissionByName(name: string) {
+    return await this.permissionModel.findOne({ name });
   }
 }
