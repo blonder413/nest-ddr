@@ -7,7 +7,7 @@ export class Role {
   name: string;
 
   @Prop({ type: [Types.ObjectId], ref: 'Permission', default: [] })
-  permission: Types.ObjectId[];
+  permissions: Types.ObjectId[];
 }
 
 export const roleSchema = SchemaFactory.createForClass(Role);
