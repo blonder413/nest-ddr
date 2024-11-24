@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { RolesService } from './roles.service';
 import { RoleDto } from './dto/role-dto';
@@ -16,5 +16,10 @@ export class RolesController {
   @Get()
   getRoles(@Query('name') name: string) {
     return this.rolesService.getRoles(name);
+  }
+
+  @Put('/:name')
+  updateRole(@Param('name') name: string, @Body() role: RoleDto) {
+    return this.rolesService.updateRole(name, role);
   }
 }
