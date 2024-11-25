@@ -42,6 +42,7 @@ export class UserDto {
   @Type(() => Date)
   birthday!: Date;
 
+  @Type(() => RoleDto)
   @ApiProperty({
     name: 'role',
     type: RoleDto,
@@ -50,6 +51,5 @@ export class UserDto {
   })
   @IsOptional()
   @IsObject()
-  @Type(() => RoleDto)
   role?: RoleDto;
 }
