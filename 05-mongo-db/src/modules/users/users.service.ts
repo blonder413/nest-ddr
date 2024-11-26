@@ -44,8 +44,15 @@ export class UsersService {
   }
 
   findUserByEmail(email: string) {
+    return this.userModel.findOne({ email }).populate({
+      path: 'role',
+      populate: { path: 'permissions', model: 'Permission' },
+    });
+  }
+
+  getUsers() {
     return this.userModel
-      .findOne({ email })
+      .find()
       .populate({
         path: 'role',
         populate: { path: 'permissions', model: 'Permission' },
