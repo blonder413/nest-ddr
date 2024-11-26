@@ -18,7 +18,9 @@ export class UsersController {
   getUsers(
     @Query('page', GreaterZeroPipe) page: number,
     @Query('size', GreaterZeroPipe) size: number,
+    @Query('sortBy') sortBy: string,
+    @Query('sort') sort: string,
   ) {
-    return this.userService.getUsers(page, size);
+    return this.userService.getUsers(page, size, sortBy, sort);
   }
 }

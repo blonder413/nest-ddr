@@ -50,7 +50,7 @@ export class UsersService {
     });
   }
 
-  async getUsers(page: number, size: number) {
+  async getUsers(page: number, size: number, sortBy: string, sort: string) {
     const skip = (page - 1) * size;
     const total = await this.userModel.countDocuments();
     const totalPages = Math.ceil(total / size);
@@ -58,8 +58,23 @@ export class UsersService {
     const hasPrevPage = page > 1 && page <= totalPages;
     const nextPage = hasNextPage ? page + 1 : null;
     const prevPage = hasPrevPage ? page - 1 : null;
+
+    const sortOptions = {};
+    if (sortBy && sort) {
+      switch (sort.toUpperCase()) {
+        case 'ASC':
+          sortOptions[sortBy] = 1;
+          break;
+        case 'DESC':
+          sortOptions[sortBy] = -1;
+      }
+    } else if (sortBy) {
+      sortOptions[sortBy] = 1;
+    }
+
     const users: User[] = await this.userModel
       .find()
+      .sort(sortOptions)
       .skip(skip)
       .limit(size)
       .populate({
