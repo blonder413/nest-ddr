@@ -1,4 +1,4 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import { ConflictException, Injectable, Type } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from './schemas/user.schema';
 import { model, Model, Types } from 'mongoose';
@@ -50,6 +50,13 @@ export class UsersService {
     });
   }
 
+  findByUserCode(userCode: number) {
+    return this.userModel.findOne({ userCode }).populate({
+      path: 'role',
+      populate: { path: 'permissions', model: 'Permission' },
+    });
+  }
+
   async getUsers(page: number, size: number, sortBy: string, sort: string) {
     const skip = (page - 1) * size;
     const total = await this.userModel.countDocuments();
@@ -92,5 +99,34 @@ export class UsersService {
       nextPage,
       prevPage,
     };
+  }
+
+  async updateUser(userCode: number, user: UserDto) {
+    const userExists = await this.findByUserCode(userCode);
+    if (userExists) {
+      if (userExists.email != user.email) {
+        const emailExists = await this.findUserByEmail(user.email);
+        if (emailExists) {
+          throw new ConflictException(`El email ${user.email} ya existe`);
+        }
+      }
+
+      let roleId: Types.ObjectId = null;
+      if (user.role) {
+        const roleExists = await this.roleService.findRoleByName(
+          user.role.name,
+        );
+        if (!roleExists) {
+          throw new ConflictException(`El rol ${user.role.name} no existe`);
+        } else {
+          roleId = roleExists._id;
+        }
+      }
+
+      await userExists.updateOne({ ...user, role: roleId });
+      return this.findByUserCode(userCode);
+    } else {
+      return this.createUser(user);
+    }
   }
 }
