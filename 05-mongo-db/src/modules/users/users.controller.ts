@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { UsersService } from './users.service';
 import { UserDto } from './dto/user-dto';
@@ -14,7 +14,7 @@ export class UsersController {
   }
 
   @Get()
-  getUsers(){
-    return this.userService.getUsers();
+  getUsers(@Query('page') page: number, @Query('size') size: number) {
+    return this.userService.getUsers(page, size);
   }
 }

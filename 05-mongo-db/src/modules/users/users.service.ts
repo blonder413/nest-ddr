@@ -50,12 +50,32 @@ export class UsersService {
     });
   }
 
-  getUsers() {
-    return this.userModel
+  async getUsers(page: number, size: number) {
+    const skip = (page - 1) * size;
+    const total = await this.userModel.countDocuments();
+    const totalPages = Math.ceil(total / size);
+    const hasNextPage = page < totalPages;
+    const hasPrevPage = page > 1 && page <= totalPages;
+    const nextPage = hasNextPage ? page + 1 : null;
+    const prevPage = hasPrevPage ? page - 1 : null;
+    const users: User[] = await this.userModel
       .find()
+      .skip(skip)
+      .limit(size)
       .populate({
         path: 'role',
         populate: { path: 'permissions', model: 'Permission' },
       });
+    return {
+      content: users,
+      page,
+      size,
+      total,
+      totalPages,
+      hasNextPage,
+      hasPrevPage,
+      nextPage,
+      prevPage,
+    };
   }
 }
