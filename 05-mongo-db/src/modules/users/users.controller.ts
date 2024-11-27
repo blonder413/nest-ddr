@@ -43,4 +43,9 @@ export class UsersController {
   addRole(@Body() userRole: UserRoleDto) {
     return this.userService.addRole(userRole);
   }
+
+  @Patch('/remove-role/:usercode')
+  removeRole(@Param('usercode') userCode: number) {
+    return this.userService.removeRole(userCode);
+  }
 }

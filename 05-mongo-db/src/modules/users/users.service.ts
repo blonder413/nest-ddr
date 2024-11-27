@@ -154,4 +154,22 @@ export class UsersService {
       );
     }
   }
+
+  async removeRole(userCode: number) {
+    const userExists = await this.findByUserCode(userCode);
+    if (!userExists) {
+      throw new ConflictException(
+        `El usuario con el userCode ${userCode} no existe`,
+      );
+    }
+
+    if (!userExists.role) {
+      throw new ConflictException(
+        `El usuario con el userCode ${userCode} no tiene un rol`,
+      );
+    }
+
+    await userExists.updateOne({ role: null });
+    return this.findByUserCode(userCode);
+  }
 }
