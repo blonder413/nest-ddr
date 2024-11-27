@@ -5,6 +5,7 @@ import { model, Model, Types } from 'mongoose';
 import { RolesService } from '../roles/roles.service';
 import { UserDto } from './dto/user-dto';
 import path from 'path';
+import { UserRoleDto } from './dto/user-role-dto';
 
 @Injectable()
 export class UsersService {
@@ -127,6 +128,30 @@ export class UsersService {
       return this.findByUserCode(userCode);
     } else {
       return this.createUser(user);
+    }
+  }
+
+  async addRole(userRole: UserRoleDto) {
+    const userExists = await this.findByUserCode(userRole.userCode);
+    if (userExists) {
+      if (userExists.role) {
+        throw new ConflictException(
+          `El usuario con el userCode ${userRole.userCode} ya tiene rol`,
+        );
+      }
+      const roleExists = await this.roleService.findRoleByName(
+        userRole.roleName,
+      );
+
+      if (!roleExists) {
+        throw new ConflictException(`El rol ${userRole.roleName} no existe`);
+      }
+      await userExists.updateOne({ role: roleExists._id });
+      return this.findByUserCode(userRole.userCode);
+    } else {
+      throw new ConflictException(
+        `El usuario con el userCode ${userRole.userCode} no existe`,
+      );
     }
   }
 }

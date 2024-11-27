@@ -1,8 +1,18 @@
-import { Body, Controller, Get, Param, Post, Put, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Put,
+  Query,
+} from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { UsersService } from './users.service';
 import { UserDto } from './dto/user-dto';
 import { GreaterZeroPipe } from 'src/pipes/greater-zero/greater-zero.pipe';
+import { UserRoleDto } from './dto/user-role-dto';
 
 @Controller('/api/v1/users')
 @ApiTags('users')
@@ -27,5 +37,10 @@ export class UsersController {
   @Put('/:usercode')
   updateUser(@Param('usercode') userCode: number, @Body() user: UserDto) {
     return this.userService.updateUser(userCode, user);
+  }
+
+  @Patch('/add-role')
+  addRole(@Body() userRole: UserRoleDto) {
+    return this.userService.addRole(userRole);
   }
 }
