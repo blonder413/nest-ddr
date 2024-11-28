@@ -35,6 +35,16 @@ export class UsersController {
     return this.userService.getUsers(page, size, sortBy, sort);
   }
 
+  @Get('/deleted')
+  getUsersDeleted(
+    @Query('page', GreaterZeroPipe) page: number,
+    @Query('size', GreaterZeroPipe) size: number,
+    @Query('sortBy') sortBy: string,
+    @Query('sort') sort: string,
+  ) {
+    return this.userService.getUsersDeleted(page, size, sortBy, sort);
+  }
+
   @Put('/:usercode')
   updateUser(@Param('usercode') userCode: number, @Body() user: UserDto) {
     return this.userService.updateUser(userCode, user);
