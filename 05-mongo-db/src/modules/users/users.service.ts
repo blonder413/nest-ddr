@@ -172,4 +172,22 @@ export class UsersService {
     await userExists.updateOne({ role: null });
     return this.findByUserCode(userCode);
   }
+
+  async deleteUser(userCode: number) {
+    const userExists = await this.findByUserCode(userCode);
+    if (!userExists) {
+      throw new ConflictException(
+        `El usuario con el userCode ${userCode} no existe`,
+      );
+    }
+
+    if (userExists.deleted) {
+      throw new ConflictException(
+        `El usuario con userCode ${userCode} ya está borrado`,
+      );
+    }
+
+    await userExists.updateOne({ deleted: true });
+    return this.findByUserCode(userCode);
+  }
 }

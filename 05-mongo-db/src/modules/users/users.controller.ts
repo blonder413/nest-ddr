@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Patch,
@@ -47,5 +48,10 @@ export class UsersController {
   @Patch('/remove-role/:usercode')
   removeRole(@Param('usercode') userCode: number) {
     return this.userService.removeRole(userCode);
+  }
+
+  @Delete('/:usercode')
+  deleteUser(@Param('usercode') userCode: number) {
+    return this.userService.deleteUser(userCode);
   }
 }
