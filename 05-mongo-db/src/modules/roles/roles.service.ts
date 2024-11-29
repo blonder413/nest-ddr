@@ -1,16 +1,23 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import {
+  ConflictException,
+  forwardRef,
+  Inject,
+  Injectable,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Role } from './schemas/role.schema';
 import { Model, Types } from 'mongoose';
 import { PermissionsService } from '../permissions/permissions.service';
 import { RoleDto } from './dto/role-dto';
 import { PermissionDto } from '../permissions/dto/permission-dto';
+import { UsersService } from '../users/users.service';
 
 @Injectable()
 export class RolesService {
   constructor(
     @InjectModel(Role.name) private roleModel: Model<Role>,
     private permissionService: PermissionsService,
+    @Inject(forwardRef(() => UsersService)) private userService: UsersService,
   ) {}
 
   async createRole(role: RoleDto) {

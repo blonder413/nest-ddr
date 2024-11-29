@@ -1,17 +1,21 @@
-import { ConflictException, Injectable, Type } from '@nestjs/common';
+import {
+  ConflictException,
+  forwardRef,
+  Inject,
+  Injectable,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from './schemas/user.schema';
-import { model, Model, Types } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { RolesService } from '../roles/roles.service';
 import { UserDto } from './dto/user-dto';
-import path from 'path';
 import { UserRoleDto } from './dto/user-role-dto';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectModel(User.name) private userModel: Model<User>,
-    private roleService: RolesService,
+    @Inject(forwardRef(() => RolesService)) private roleService: RolesService,
   ) {}
 
   async createUser(user: UserDto) {
@@ -216,5 +220,31 @@ export class UsersService {
 
     await userExists.updateOne({ deleted: true });
     return this.findByUserCode(userCode);
+  }
+
+  async numberUsersWithRole(roleName: string) {
+    const usersWithRole = await this.userModel.aggregate([
+      {
+        $lookup: {
+          from: 'roles',
+          localField: 'role',
+          foreignField: '_id',
+          as: 'roles',
+        },
+      },
+      {
+        $match: {
+          'roles.name': roleName.trim().toUpperCase(),
+        },
+      },
+      {
+        $count: 'count',
+      },
+    ]);
+
+    if (usersWithRole.length > 0) {
+      return usersWithRole[0].count();
+    }
+    return 0;
   }
 }
