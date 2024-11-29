@@ -243,7 +243,7 @@ export class UsersService {
     ]);
 
     if (usersWithRole.length > 0) {
-      return usersWithRole[0].count();
+      return usersWithRole[0].count;
     }
     return 0;
   }

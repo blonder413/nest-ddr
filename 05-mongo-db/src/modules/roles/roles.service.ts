@@ -151,6 +151,11 @@ export class RolesService {
   async destroyRole(name: string) {
     const roleExists = await this.findRoleByName(name);
     if (roleExists) {
+      const numberUsers = await this.userService.numberUsersWithRole(name);
+
+      if (numberUsers > 0) {
+        throw new ConflictException(`Existen usuarios con el rol ${name}`);
+      }
       return roleExists.deleteOne();
     }
     throw new ConflictException('El rol no existe');
