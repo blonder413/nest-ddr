@@ -3,6 +3,7 @@
 ```sh
 npm i class-validator
 ```
+
 # Validation Pipe
 
 ```sh
@@ -20,4 +21,16 @@ npm i swagger-ui-express
 
 ```sh
 npm i @nestjs/mongoose mongoose
+```
+
+# [Config](https://docs.nestjs.com/techniques/configuration)
+
+```sh
+npm i --save @nestjs/config
+```
+
+# [cross-env](https://www.npmjs.com/package/cross-env)
+
+```sh
+npm install --save-dev cross-env
 ```
