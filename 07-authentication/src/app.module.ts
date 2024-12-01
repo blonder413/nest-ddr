@@ -18,7 +18,7 @@ import { UsersModule } from './modules/users/users.module';
           'mongodb://' +
           configService.get('mongo.user') +
           ':' +
-          configService.get('mongo.pasword') +
+          configService.get('mongo.password') +
           '@' +
           configService.get('mongo.host') +
           ':' +
