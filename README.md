@@ -49,3 +49,9 @@ npm i --save @nestjs/config
 ```sh
 npm install --save-dev cross-env
 ```
+
+# bcrypt
+
+```sh
+npm i bcrypt
+```

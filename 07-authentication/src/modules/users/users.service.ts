@@ -22,4 +22,8 @@ export class UsersService {
     u.password = undefined;
     return u;
   }
+
+  async get() {
+    return await this.userModel.find({}, { password: 0 });
+  }
 }

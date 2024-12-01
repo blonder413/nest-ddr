@@ -1,4 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import * as bcrypt from 'bcrypt';
 
 @Schema()
 export class User {
@@ -16,3 +17,8 @@ export class User {
 }
 
 export const userSchema = SchemaFactory.createForClass(User);
+
+userSchema.pre<User>('save', async function () {
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
+});
