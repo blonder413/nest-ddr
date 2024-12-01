@@ -55,3 +55,9 @@ npm install --save-dev cross-env
 ```sh
 npm i bcrypt
 ```
+
+# Passport
+
+```sh
+npm i @nestjs/passport passport
+```
