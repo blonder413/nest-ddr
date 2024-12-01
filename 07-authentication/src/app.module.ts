@@ -4,11 +4,12 @@ import configurationMongo from './configuration/configuration-mongo';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UsersModule } from './modules/users/users.module';
 import { AuthModule } from './modules/auth/auth.module';
+import configurationAuth from './configuration/configuration-auth';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      load: [configurationMongo],
+      load: [configurationMongo, configurationAuth],
       envFilePath: `.env.${process.env.NODE_ENV}`,
       isGlobal: true,
     }),
