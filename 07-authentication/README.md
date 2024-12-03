@@ -46,3 +46,9 @@ npm i bcrypt
 ```sh
 npm i @nestjs/passport passport
 ```
+
+# Jwt
+
+```sh
+npm i @nestjs/jwt passport-jwt
+```
