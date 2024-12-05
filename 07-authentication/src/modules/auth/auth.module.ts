@@ -14,7 +14,7 @@ import { UsersModule } from '../users/users.module';
       useFactory: (configService: ConfigService) => {
         return {
           secret: configService.get('auth.secretKey'),
-          signOptions: { expiresIn: '30s' },
+          signOptions: { expiresIn: '60s' },
         };
       },
       inject: [ConfigService],
