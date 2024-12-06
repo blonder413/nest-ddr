@@ -20,6 +20,16 @@ import { diskStorage } from 'multer';
         destination: (req, file, callback) => {
           callback(null, './upload');
         },
+        filename: (req, file, cb) => {
+          let filenameParts = file.originalname.split('.');
+          filenameParts = filenameParts.slice(0, filenameParts.length - 1);
+          const filename = filenameParts.join('.');
+          if (file.mimetype) {
+            const ext = file.mimetype.split('/')[1];
+            cb(null, filename + '-' + Date.now() + '.' + ext);
+          }
+          cb(null, filename + '-' + Date.now());
+        },
       }),
     }),
   ],
