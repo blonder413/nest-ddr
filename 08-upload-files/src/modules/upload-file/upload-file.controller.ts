@@ -1,6 +1,9 @@
 import {
+  Body,
   Controller,
+  Get,
   Post,
+  Response,
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
@@ -17,5 +20,10 @@ export class UploadFileController {
   @UseInterceptors(FileInterceptor('file'))
   uploadFile(@UploadedFile() file: Express.Multer.File) {
     return this.uploadFileService.uploadFile(file);
+  }
+
+  @Get('download')
+  downloadFile(@Response() res, @Body() body: any) {
+    return this.uploadFileService.download(res, body.filename);
   }
 }
