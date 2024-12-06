@@ -67,3 +67,9 @@ npm i @nestjs/passport passport
 ```sh
 npm i @nestjs/jwt passport-jwt
 ```
+
+# [File upload](https://docs.nestjs.com/techniques/file-upload)
+
+```sh
+npm i -D @types/multer
+```
