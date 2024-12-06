@@ -78,4 +78,5 @@ npm i -D @types/multer
 
 ```sh
 npm install --save @nestjs/schedule
+npm install --save-dev @types/cron
 ```

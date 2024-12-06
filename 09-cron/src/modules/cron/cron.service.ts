@@ -1,5 +1,6 @@
 import { ConflictException, Injectable } from '@nestjs/common';
 import { Cron, SchedulerRegistry } from '@nestjs/schedule';
+import { CronJob } from 'cron';
 
 @Injectable()
 export class CronService {
@@ -21,7 +22,7 @@ export class CronService {
   }
 
   desactivateCron(name: string) {
-    const job = this.schedulerRegistry.getCronJob(name);
+    const job: CronJob = this.schedulerRegistry.getCronJob(name);
     if (!job) {
       throw new ConflictException('El cron no existe');
     }
