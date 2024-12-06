@@ -27,8 +27,9 @@ import { diskStorage } from 'multer';
           if (file.mimetype) {
             const ext = file.mimetype.split('/')[1];
             cb(null, filename + '-' + Date.now() + '.' + ext);
+          } else {
+            cb(null, filename + '-' + Date.now());
           }
-          cb(null, filename + '-' + Date.now());
         },
       }),
     }),
