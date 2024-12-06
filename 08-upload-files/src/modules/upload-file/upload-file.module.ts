@@ -4,7 +4,12 @@ import { UploadFileService } from './upload-file.service';
 import { MulterModule } from '@nestjs/platform-express';
 
 @Module({
-  imports: [MulterModule.register({ dest: './upload' })],
+  imports: [
+    MulterModule.register({
+      dest: './upload',
+      limits: { fileSize: 2 * 1024 * 1024 },  // byte * kb * mb
+    }),
+  ],
   controllers: [UploadFileController],
   providers: [UploadFileService],
 })
