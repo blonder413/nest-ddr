@@ -73,3 +73,9 @@ npm i @nestjs/jwt passport-jwt
 ```sh
 npm i -D @types/multer
 ```
+
+# [Task Scheduling](https://docs.nestjs.com/techniques/task-scheduling)
+
+```sh
+npm install --save @nestjs/schedule
+```

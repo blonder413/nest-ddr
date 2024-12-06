@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
+import { SchedulerRegistry } from '@nestjs/schedule';
 
 @Injectable()
 export class CronService {
-    constructor(){}
+  constructor(private schedulerRegistry: SchedulerRegistry) {}
 }
