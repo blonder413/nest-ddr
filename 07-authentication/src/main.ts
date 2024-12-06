@@ -11,6 +11,7 @@ async function bootstrap() {
     .setTitle('Authentication')
     .setDescription('Ejemplo authentication mongodb')
     .setVersion('1.0')
+    .addBearerAuth({ bearerFormat: 'JWT', type: 'http' }, 'jwt')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('swagger', app, document);
