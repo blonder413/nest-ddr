@@ -86,3 +86,11 @@ npm install --save-dev @types/cron
 ```sh
 npm i winston
 ```
+
+## [winston-daily-rotate-file](https://www.npmjs.com/package/winston-daily-rotate-file)
+
+Permite almacenar logs basados en la fecha en archivos. Crea un archivo para cada día.
+
+```sh
+npm i winston-daily-rotate-file
+```
