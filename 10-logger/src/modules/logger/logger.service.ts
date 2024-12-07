@@ -8,9 +8,11 @@ export class LoggerService {
   private loggerWarn: Logger;
   private loggerAll: Logger;
 
-  constructor() {}
+  constructor() {
+    this.createLoggers();
+  }
 
-  createLogger() {
+  createLoggers() {
     const textFormat = format.printf((log) => {
       return `${log.timestamp} - [${log.level.toLocaleUpperCase().charAt(0)}] ${log.message}`;
     });
@@ -20,27 +22,42 @@ export class LoggerService {
     this.loggerInfo = createLogger({
       level: 'info',
       format: format.combine(dateFormat, textFormat),
-      transports: [new transports.File({ filename: 'log/info/info.log' })],
+      transports: [new transports.File({ filename: 'logs/info/info.log' })],
     });
 
     this.loggerError = createLogger({
       level: 'error',
       format: format.combine(dateFormat, textFormat),
-      transports: [new transports.File({ filename: 'log/error/error.log' })],
+      transports: [new transports.File({ filename: 'logs/error/error.log' })],
     });
 
     this.loggerWarn = createLogger({
       level: 'warn',
       format: format.combine(dateFormat, textFormat),
-      transports: [new transports.File({ filename: 'log/warn/warn.log' })],
+      transports: [new transports.File({ filename: 'logs/warn/warn.log' })],
     });
 
     this.loggerAll = createLogger({
       format: format.combine(dateFormat, textFormat),
       transports: [
-        new transports.File({ filename: 'log/all/all.log' }),
+        new transports.File({ filename: 'logs/all/all.log' }),
         new transports.Console(),
       ],
     });
+  }
+
+  debug(message: string) {}
+  error(message: string) {
+    this.loggerAll.error(message);
+    this.loggerError.error(message);
+  }
+  log(message: string) {
+    this.loggerAll.info(message);
+    this.loggerInfo.info(message);
+  }
+  verbose(message: string) {}
+  warn(message: string) {
+    this.loggerAll.warn(message);
+    this.loggerError.warn(message);
   }
 }
