@@ -1,5 +1,5 @@
-import { Injectable, Logger } from '@nestjs/common';
-import { format } from 'winston';
+import { Injectable } from '@nestjs/common';
+import { createLogger, format, Logger, transports } from 'winston';
 
 @Injectable()
 export class LoggerService {
@@ -16,5 +16,31 @@ export class LoggerService {
     });
 
     const dateFormat = format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' });
+
+    this.loggerInfo = createLogger({
+      level: 'info',
+      format: format.combine(dateFormat, textFormat),
+      transports: [new transports.File({ filename: 'log/info/info.log' })],
+    });
+
+    this.loggerError = createLogger({
+      level: 'error',
+      format: format.combine(dateFormat, textFormat),
+      transports: [new transports.File({ filename: 'log/error/error.log' })],
+    });
+
+    this.loggerWarn = createLogger({
+      level: 'warn',
+      format: format.combine(dateFormat, textFormat),
+      transports: [new transports.File({ filename: 'log/warn/warn.log' })],
+    });
+
+    this.loggerAll = createLogger({
+      format: format.combine(dateFormat, textFormat),
+      transports: [
+        new transports.File({ filename: 'log/all/all.log' }),
+        new transports.Console(),
+      ],
+    });
   }
 }
