@@ -80,3 +80,9 @@ npm i -D @types/multer
 npm install --save @nestjs/schedule
 npm install --save-dev @types/cron
 ```
+
+# [winston](https://www.npmjs.com/package/winston)
+
+```sh
+npm i winston
+```

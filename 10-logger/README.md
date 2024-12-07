@@ -10,3 +10,9 @@ npm install --save @nestjs/swagger swagger-ui-express
 npm install --save @nestjs/schedule
 npm install --save-dev @types/cron
 ```
+
+# [winston](https://www.npmjs.com/package/winston)
+
+```sh
+npm i winston
+```
