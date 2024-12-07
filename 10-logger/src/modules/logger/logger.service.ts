@@ -1,4 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
+import { format } from 'winston';
 
 @Injectable()
 export class LoggerService {
@@ -9,5 +10,9 @@ export class LoggerService {
 
   constructor() {}
 
-  createLogger() {}
+  createLogger() {
+    const textFormat = format.printf((log) => {
+      return `${log.timestamp} - [${log.level.toLocaleUpperCase().charAt(0)}] ${log.message}`;
+    });
+  }
 }
