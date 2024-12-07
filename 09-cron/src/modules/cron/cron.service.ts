@@ -48,4 +48,12 @@ export class CronService {
     }
     return names;
   }
+
+  desactivateAll() {
+    const names = this.getNamesCrones();
+    for (const name of names) {
+      this.desactivateCron(name);
+    }
+    return true;
+  }
 }

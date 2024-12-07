@@ -19,4 +19,9 @@ export class CronController {
   activateCron(@Param('name') name: string) {
     return this.cronService.activateCron(name);
   }
+
+  @Put('/desactivate-all')
+  desactivateAll() {
+    return this.cronService.desactivateAll();
+  }
 }
