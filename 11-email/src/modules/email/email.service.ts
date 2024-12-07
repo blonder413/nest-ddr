@@ -1,6 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
+import { EmailConfig } from './email-config';
 
 @Injectable()
 export class EmailService {
-  constructor() {}
+  constructor(@Inject('CONFIG_OPTIONS') private options: EmailConfig) {}
 }
