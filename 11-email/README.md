@@ -12,12 +12,20 @@ npm install --save @nestjs/swagger swagger-ui-express
 
 Valida las solicitudes entrantes. Nest proporciona varias formas de validar:
 
--   ValidationPipe
--   ParseIntPipe
--   ParseBoolPipe
--   ParseArrayPipe
--   ParseUUIDPipe
+- ValidationPipe
+- ParseIntPipe
+- ParseBoolPipe
+- ParseArrayPipe
+- ParseUUIDPipe
 
 ```sh
 npm i --save class-validator class-transformer
+```
+
+## [Nodemailer](https://www.npmjs.com/package/nodemailer)
+
+Permite enviar emails con nodejs
+
+```sh
+npm i nodemailer
 ```

@@ -96,3 +96,11 @@ Permite almacenar logs basados en la fecha en archivos. Crea un archivo para cad
 ```sh
 npm i winston-daily-rotate-file
 ```
+
+## [Nodemailer](https://www.npmjs.com/package/nodemailer)
+
+Permite enviar emails con nodejs
+
+```sh
+npm i nodemailer
+```
