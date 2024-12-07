@@ -29,3 +29,15 @@ Permite enviar emails con nodejs
 ```sh
 npm i nodemailer
 ```
+
+## [cross-env](https://www.npmjs.com/package/cross-env)
+
+```sh
+npm install --save-dev cross-env
+```
+
+# [Config](https://docs.nestjs.com/techniques/configuration)
+
+```sh
+npm i --save @nestjs/config
+```

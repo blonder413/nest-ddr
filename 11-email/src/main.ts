@@ -4,6 +4,11 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
+  console.log(`Ejecuntando en modo: ${process.env.NODE_ENV}`);
+
+  /** console.log(process.env.EMAIL_FROM); */
+  
+  
   const app = await NestFactory.create(AppModule);
 
   app.useGlobalPipes(new ValidationPipe({ transform: true }));

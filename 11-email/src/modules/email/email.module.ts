@@ -6,6 +6,7 @@ import { EmailConfig } from './email-config';
 @Module({
   controllers: [EmailController],
   providers: [EmailService],
+  exports:[EmailService]
 })
 export class EmailModule {
   static register(options: EmailConfig): DynamicModule {
@@ -16,6 +17,7 @@ export class EmailModule {
         { provide: 'CONFIG_OPTIONS', useValue: options },
         EmailService,
       ],
+      exports:[EmailService]
     };
   }
 }
