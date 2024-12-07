@@ -5,11 +5,15 @@ import { LoggerService } from '../logger/logger.service';
 
 @Injectable()
 export class CronService {
-  constructor(private schedulerRegistry: SchedulerRegistry, private loggerService:LoggerService) {}
+  constructor(
+    private schedulerRegistry: SchedulerRegistry,
+    private loggerService: LoggerService,
+  ) {}
 
   @Cron('*/10 * * * * *', { name: 'cron1' })
   cron1() {
-    this.loggerService.log('Cron1: se ejecuta cada 10 segundos');
+    /** this.loggerService.log('Cron1: se ejecuta cada 10 segundos'); */
+    console.log('Cron1: se ejecuta cada 10 segundo');
   }
 
   @Cron('*/30 * * * * *', { name: 'cron2' })

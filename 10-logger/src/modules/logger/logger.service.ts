@@ -11,6 +11,7 @@ export class LoggerService {
 
   constructor() {
     this.createLoggers();
+    this.replaceConsole();
   }
 
   createLoggers() {
@@ -75,6 +76,38 @@ export class LoggerService {
         new transports.Console(),
       ],
     });
+  }
+
+  replaceConsole() {
+    console.log = (message: any, params: any) => {
+      if (params) {
+        this.loggerInfo.info(`${message} ${JSON.stringify(params)}`);
+        this.loggerAll.info(`${message} ${JSON.stringify(params)}`);
+      } else {
+        this.loggerInfo.info(message);
+        this.loggerAll.info(message);
+      }
+    };
+
+    console.error = (message: any, params: any) => {
+      if (params) {
+        this.loggerError.error(`${message} ${JSON.stringify(params)}`);
+        this.loggerAll.error(`${message} ${JSON.stringify(params)}`);
+      } else {
+        this.loggerError.error(message);
+        this.loggerAll.error(message);
+      }
+    };
+
+    console.warn = (message: any, params: any) => {
+      if (params) {
+        this.loggerWarn.warn(`${message} ${JSON.stringify(params)}`);
+        this.loggerAll.warn(`${message} ${JSON.stringify(params)}`);
+      } else {
+        this.loggerWarn.warn(message);
+        this.loggerAll.warn(message);
+      }
+    };
   }
 
   debug(message: string) {}
