@@ -1,5 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsArray, IsNotEmpty, IsString } from 'class-validator';
+import { IsArray, IsNotEmpty, IsString, ValidateNested } from 'class-validator';
+import { SenderDto } from './sender-dto';
+import { Type } from 'class-transformer';
 
 export class MessageDto {
   @ApiProperty({
@@ -31,5 +33,7 @@ export class MessageDto {
   })
   @IsArray()
   @IsNotEmpty()
-  receivers: string[];
+  @ValidateNested({ each: true })
+  @Type(() => SenderDto)
+  receivers: SenderDto[];
 }
