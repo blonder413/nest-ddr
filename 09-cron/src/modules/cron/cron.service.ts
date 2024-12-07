@@ -40,4 +40,12 @@ export class CronService {
     console.log(`Cron ${name} activado`);
     return true;
   }
+
+  getNamesCrones() {
+    const names = [];
+    for (const nameCron of this.schedulerRegistry.getCronJobs().keys()) {
+      names.push(nameCron);
+    }
+    return names;
+  }
 }

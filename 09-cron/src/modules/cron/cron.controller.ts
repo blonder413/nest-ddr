@@ -1,9 +1,14 @@
-import { Controller, Param, Put } from '@nestjs/common';
+import { Controller, Get, Param, Put } from '@nestjs/common';
 import { CronService } from './cron.service';
 
 @Controller('api/v1/cron')
 export class CronController {
   constructor(private cronService: CronService) {}
+
+  @Get()
+  getNamesCrons() {
+    return this.cronService.getNamesCrones();
+  }
 
   @Put('/desactivate/:name')
   desactivateCron(@Param('name') name: string) {
