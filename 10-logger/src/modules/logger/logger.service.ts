@@ -14,5 +14,7 @@ export class LoggerService {
     const textFormat = format.printf((log) => {
       return `${log.timestamp} - [${log.level.toLocaleUpperCase().charAt(0)}] ${log.message}`;
     });
+
+    const dateFormat = format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' });
   }
 }
