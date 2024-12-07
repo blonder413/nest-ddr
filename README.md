@@ -8,16 +8,18 @@ Curso nest
 npm install --save @nestjs/swagger swagger-ui-express
 ```
 
-# Validación
+## [Validation](https://docs.nestjs.com/techniques/validation)
+
+Valida las solicitudes entrantes. Nest proporciona varias formas de validar:
+
+-   ValidationPipe
+-   ParseIntPipe
+-   ParseBoolPipe
+-   ParseArrayPipe
+-   ParseUUIDPipe
 
 ```sh
-npm i class-validator
-```
-
-# Validation Pipe
-
-```sh
-npm i class-transformer
+npm i --save class-validator class-transformer
 ```
 
 ## Crear Pipe
