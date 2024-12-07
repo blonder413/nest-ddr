@@ -30,4 +30,14 @@ export class CronService {
     console.log(`Cron ${name} desactivado`);
     return true;
   }
+
+  activateCron(name: string) {
+    const job: CronJob = this.schedulerRegistry.getCronJob(name);
+    if (!job) {
+      throw new ConflictException('El cron no existe');
+    }
+    job.start();
+    console.log(`Cron ${name} activado`);
+    return true;
+  }
 }
