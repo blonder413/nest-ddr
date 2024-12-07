@@ -58,6 +58,6 @@ export class LoggerService {
   verbose(message: string) {}
   warn(message: string) {
     this.loggerAll.warn(message);
-    this.loggerError.warn(message);
+    this.loggerWarn.warn(message);
   }
 }

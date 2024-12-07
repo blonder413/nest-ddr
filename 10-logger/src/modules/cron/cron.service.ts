@@ -1,24 +1,25 @@
 import { ConflictException, Injectable } from '@nestjs/common';
 import { Cron, SchedulerRegistry } from '@nestjs/schedule';
 import { CronJob } from 'cron';
+import { LoggerService } from '../logger/logger.service';
 
 @Injectable()
 export class CronService {
-  constructor(private schedulerRegistry: SchedulerRegistry) {}
+  constructor(private schedulerRegistry: SchedulerRegistry, private loggerService:LoggerService) {}
 
   @Cron('*/10 * * * * *', { name: 'cron1' })
   cron1() {
-    console.log('Cron1: se ejecuta cada 10 segundos');
+    this.loggerService.log('Cron1: se ejecuta cada 10 segundos');
   }
 
   @Cron('*/30 * * * * *', { name: 'cron2' })
   cron2() {
-    console.log('Cron2: se ejecuta cada 30 segundos');
+    this.loggerService.warn('Cron2: se ejecuta cada 30 segundos');
   }
 
   @Cron('* * * * *', { name: 'cron3' })
   cron3() {
-    console.log('Cron3: se ejecuta cada minuto');
+    this.loggerService.error('Cron3: se ejecuta cada minuto');
   }
 
   desactivateCron(name: string) {
