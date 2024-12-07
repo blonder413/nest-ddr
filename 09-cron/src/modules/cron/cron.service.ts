@@ -49,6 +49,14 @@ export class CronService {
     return names;
   }
 
+  activateAll() {
+    const names = this.getNamesCrones();
+    for (const name of names) {
+      this.activateCron(name);
+    }
+    return true;
+  }
+
   desactivateAll() {
     const names = this.getNamesCrones();
     for (const name of names) {

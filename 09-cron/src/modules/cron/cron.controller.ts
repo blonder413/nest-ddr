@@ -20,6 +20,11 @@ export class CronController {
     return this.cronService.activateCron(name);
   }
 
+  @Put('/activate-all')
+  activateAll() {
+    return this.cronService.activateAll();
+  }
+
   @Put('/desactivate-all')
   desactivateAll() {
     return this.cronService.desactivateAll();
