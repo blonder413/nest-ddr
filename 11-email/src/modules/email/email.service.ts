@@ -32,7 +32,7 @@ export class EmailService {
         subject: message.subject,
         html: message.body,
       };
-      return transporter.sendEmail(mailOptions);
+      return transporter.sendMail(mailOptions);
     } catch (error) {
       console.error(error);
       return null;
