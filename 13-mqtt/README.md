@@ -21,3 +21,9 @@ Valida las solicitudes entrantes. Nest proporciona varias formas de validar:
 ```sh
 npm i --save class-validator class-transformer
 ```
+
+## [MQTT](https://docs.nestjs.com/microservices/mqtt)
+
+```sh
+npm i --save mqtt
+```

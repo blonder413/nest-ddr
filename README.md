@@ -110,3 +110,9 @@ npm i nodemailer
 ```sh
 npm i --save @nestjs/microservices
 ```
+
+## [MQTT](https://docs.nestjs.com/microservices/mqtt)
+
+```sh
+npm i --save mqtt
+```
