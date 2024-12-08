@@ -104,3 +104,9 @@ Permite enviar emails con nodejs
 ```sh
 npm i nodemailer
 ```
+
+## [Microservicios](https://docs.nestjs.com/microservices/basics)
+
+```sh
+npm i --save @nestjs/microservices
+```
