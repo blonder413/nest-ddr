@@ -13,4 +13,12 @@ export class ExampleCommunicationService {
         .send(PATTERNS.MESSAGES.SEND_MESSAGE, { message }),
     );
   }
+
+  sendEventPattern(message: string) {
+    return firstValueFrom(
+      this.microServiceConnection
+        .getClient()
+        .emit(PATTERNS.EVENTS.RECEIVE_MESSAGE, { message }),
+    );
+  }
 }

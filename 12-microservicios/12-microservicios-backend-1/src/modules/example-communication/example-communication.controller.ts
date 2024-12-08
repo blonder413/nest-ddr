@@ -17,6 +17,9 @@ export class ExampleCommunicationController {
   @MessagePattern(PATTERNS.MESSAGES.SEND_MESSAGE)
   receiveMessageFromMessagePattern1(data: { message: string }) {
     console.log(`[MessagePattern] mensaje recibido: ${data.message}`);
+    this.exampleCommunicationService.sendEventPattern(
+      'Mensaje de vuelta desde el backend 1',
+    );
     return true;
   }
 
