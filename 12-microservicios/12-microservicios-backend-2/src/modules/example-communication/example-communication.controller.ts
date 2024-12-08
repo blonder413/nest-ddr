@@ -11,12 +11,17 @@ export class ExampleCommunicationController {
 
   @Get('send-message')
   sendMessage() {
-    return this.exampleCommunicationService.sendMessagePattern('Hola desde backend 2');
+    return this.exampleCommunicationService.sendMessagePattern(
+      'Hola desde backend 2',
+    );
   }
 
   @MessagePattern(PATTERNS.MESSAGES.SEND_MESSAGE)
   receiveMessageFromMessagePatternB2(data: { message: string }) {
     console.log(`[MessagePattern] mensaje recibido: ${data.message}`);
+    this.exampleCommunicationService.sendEventPattern(
+      'Mensaje de vuelta desde el backend 2',
+    );
     return true;
   }
 }

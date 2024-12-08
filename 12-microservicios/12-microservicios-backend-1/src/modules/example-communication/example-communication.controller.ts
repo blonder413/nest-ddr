@@ -1,6 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 import { ExampleCommunicationService } from './example-communication.service';
-import { MessagePattern } from '@nestjs/microservices';
+import { EventPattern, MessagePattern } from '@nestjs/microservices';
 import { PATTERNS } from './example-communication.constants';
 
 @Controller('api/v1/microservice-b1')
@@ -18,5 +18,10 @@ export class ExampleCommunicationController {
   receiveMessageFromMessagePattern1(data: { message: string }) {
     console.log(`[MessagePattern] mensaje recibido: ${data.message}`);
     return true;
+  }
+
+  @EventPattern(PATTERNS.EVENTS.RECEIVE_MESSAGE)
+  receiveMessageFromEventB1(data: { message: string }) {
+    console.log(`[EventPattern] mensaje recibido: ${data.message}`);
   }
 }
