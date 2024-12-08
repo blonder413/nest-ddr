@@ -1,9 +1,16 @@
 import { Injectable } from '@nestjs/common';
+import { MicroserviceConnectionService } from '../microservice-connection/microservice-connection.service';
+import { PATTERNS } from './example-communication.constants';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable()
 export class ExampleCommunicationService {
-  constructor() {}
-  sendMessage(message: string) {
-    return message;
+  constructor(private microServiceConnection: MicroserviceConnectionService) {}
+  sendMessagePattern(message: string) {
+    return firstValueFrom(
+      this.microServiceConnection
+        .getClient()
+        .send(PATTERNS.MESSAGES.SEND_MESSAGE, { message }),
+    );
   }
 }

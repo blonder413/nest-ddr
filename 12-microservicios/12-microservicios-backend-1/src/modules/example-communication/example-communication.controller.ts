@@ -9,6 +9,6 @@ export class ExampleCommunicationController {
 
   @Get('send-message')
   sendMessage() {
-    return this.exampleCommunicationService.sendMessage('Hola 1');
+    return this.exampleCommunicationService.sendMessagePattern('Hola 1');
   }
 }
