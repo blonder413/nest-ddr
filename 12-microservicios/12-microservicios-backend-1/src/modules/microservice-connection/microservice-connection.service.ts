@@ -18,4 +18,8 @@ export class MicroserviceConnectionService {
   getClient() {
     return this.client;
   }
+
+  async connectClient(){
+    await this.client.connect()
+  }
 }

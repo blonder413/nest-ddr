@@ -3,6 +3,8 @@ import { AppModule } from './app.module';
 import { Transport } from '@nestjs/microservices';
 
 async function bootstrap() {
+  console.log('Corriendo BACKEND 2 en puerto 3030');
+
   const app = await NestFactory.create(AppModule);
 
   app.connectMicroservice({

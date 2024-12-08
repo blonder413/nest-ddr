@@ -6,19 +6,31 @@ import { firstValueFrom } from 'rxjs';
 @Injectable()
 export class ExampleCommunicationService {
   constructor(private microServiceConnection: MicroserviceConnectionService) {}
-  sendMessagePattern(message: string) {
-    return firstValueFrom(
-      this.microServiceConnection
-        .getClient()
-        .send(PATTERNS.MESSAGES.SEND_MESSAGE, { message }),
-    );
+  async sendMessagePattern(message: string) {
+    try {
+      await this.microServiceConnection.connectClient();
+      return firstValueFrom(
+        this.microServiceConnection
+          .getClient()
+          .send(PATTERNS.MESSAGES.SEND_MESSAGE, { message }),
+      );
+    } catch (error) {
+      console.error('No hay conexión');
+      return false;
+    }
   }
 
-  sendEventPattern(message: string) {
-    return firstValueFrom(
-      this.microServiceConnection
-        .getClient()
-        .emit(PATTERNS.EVENTS.RECEIVE_MESSAGE, { message }),
-    );
+  async sendEventPattern(message: string) {
+    try {
+      await this.microServiceConnection.connectClient();
+      return firstValueFrom(
+        this.microServiceConnection
+          .getClient()
+          .emit(PATTERNS.EVENTS.RECEIVE_MESSAGE, { message }),
+      );
+    } catch (error) {
+      console.error('No hay conexión');
+      return false;
+    }
   }
 }
