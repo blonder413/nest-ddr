@@ -11,7 +11,7 @@ export class ExampleCommunicationController {
 
   @Get('send-message')
   sendMessage() {
-    return this.exampleCommunicationService.sendMessage('Hola 2');
+    return this.exampleCommunicationService.sendMessagePattern('Hola desde backend 2');
   }
 
   @MessagePattern(PATTERNS.MESSAGES.SEND_MESSAGE)
